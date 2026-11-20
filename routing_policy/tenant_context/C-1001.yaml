@@ -1,0 +1,78 @@
+tenant_id: C-1001
+display_name: Infosys
+region: IN
+queue_hints:
+  Statutory-Compliance: PF, EPF, statutory deductions, compliance filings, wage ceilings
+  Payroll-Operations: salary credit failures, payroll run errors, payslips, payroll
+    calendars
+  UAE-WPS: WPS/SIF file submissions and UAE salary compliance (not applicable to IN
+    region)
+priority_guidance:
+- 'p1: payroll-wide outage, missed statutory deadline, data breach, or wages not paid
+  to an entire entity'
+- 'p2: individual salary non-payment, repeated PF discrepancies, urgent compliance
+  query'
+- 'p3: general how-to questions, document requests, status checks'
+kb_hints:
+- kb_id: kb-in-pf-rules
+  topics:
+  - pf
+  - epf
+  - provident_fund
+  years:
+  - 2025
+  - 2026
+  note: Indian PF/EPF contribution rules and ceilings by period
+- kb_id: kb-in-payroll-calendar
+  topics:
+  - payroll_run
+  - salary_not_credited
+  - payroll_failed
+  years:
+  - 2026
+  note: Payroll run schedules and failure playbooks
+- kb_id: kb-in-statutory-deductions
+  topics:
+  - tax
+  - tds
+  - statutory_deduction
+  years:
+  - 2025
+  - 2026
+  note: TDS and other statutory deduction guidance
+- kb_id: kb-in-esi-rates
+  topics: [esi, insurance]
+  note: ESI rates, ceiling and filings
+- kb_id: kb-in-bank-file
+  topics: [bank_file, salary_credit, neft, rtgs]
+  note: Salary credit bank file formats
+- kb_id: kb-in-payslip
+  topics: [payslip, payslips]
+  note: Payslip download and bulk export
+- kb_id: kb-in-registers
+  topics: [registers, statutory_registers, form5, form6, form7]
+  note: Statutory register exports
+- kb_id: kb-in-gratuity
+  topics: [gratuity]
+  years: [2026]
+  note: Gratuity accrual FY2026
+- kb_id: kb-all-howto-payroll
+  topics: [howto_payroll, payroll]
+  note: End-to-end monthly payroll run
+- kb_id: kb-all-lifecycle
+  topics: [onboarding, fnf, arrears, employee]
+  note: Onboarding, F&F, arrears
+- kb_id: kb-all-leave
+  topics: [leave, leave_policy]
+  note: Leave policies and balances
+- kb_id: kb-all-access
+  topics: [access, sso, password, mobile_app]
+  note: Access, SSO, ESS app
+- kb_id: kb-all-billing
+  topics: [billing, invoice, gst]
+  note: Billing and invoices
+- kb_id: kb-all-reports
+  topics: [reports, integration, data_requests]
+  note: Reports, integrations, data requests
+notes: Infosys tenant. Payroll runs monthly; PF contributions are statutory. Escalate
+  any claim of wrong PF remittance to Statutory-Compliance.

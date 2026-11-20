@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Payce Support — Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="header-inner">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">P</span>
+          <div>
+            <h1>Payce Support</h1>
+            <p class="muted">Intelligence · local demo</p>
+          </div>
+        </div>
+        <div class="header-right">
+          <span class="health-pill"><span id="health-dot" class="dot dot-unknown"></span><span id="health-text">checking…</span></span>
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input type="text" placeholder="Search tickets, rules…" aria-label="Search" />
+          </div>
+          <a class="icon-btn" href="/dev/ui/" title="API playground" aria-label="API playground">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          </a>
+          <span class="user-chip"><span class="avatar">AD</span><span class="user-meta"><b>Admin</b><span id="clock"></span></span></span>
+        </div>
+      </div>
+    </header>
+
+    <div class="app-shell">
+    <nav class="tabs" aria-label="Dashboard sections">
+      <div class="side-brand">
+        <span class="brand-mark sm">P</span>
+        <div><b>Payce Support</b><span>Ops console</span></div>
+      </div>
+      <div class="side-group-label">OVERVIEW</div>
+      <button type="button" class="tab active" data-tab="home"><svg class="tab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.8 12 3l9 7.8"/><path d="M5.5 9.5V20a1 1 0 0 0 1 1H10v-6h4v6h3.5a1 1 0 0 0 1-1V9.5"/></svg>Home</button>
+      <button type="button" class="tab" data-tab="intake"><svg class="tab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>Intake</button>
+      <button type="button" class="tab" data-tab="tickets"><svg class="tab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>Tickets</button>
+      <button type="button" class="tab" data-tab="channels"><svg class="tab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="12" r="2.5"/><circle cx="17" cy="6" r="2.5"/><circle cx="17" cy="18" r="2.5"/><path d="m8.3 10.8 6.4-3.6M8.3 13.2l6.4 3.6"/></svg>Channels</button>
+      <button type="button" class="tab" data-tab="worklist"><svg class="tab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c.6-3.4 2.8-5 5.5-5s4.9 1.6 5.5 5"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14.6c2.6.2 4 1.7 4.5 4.4"/></svg>Worklist</button>
+      <div class="side-group-label">MONITORING</div>
+      <button type="button" class="tab" data-tab="sla"><svg class="tab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>SLA monitoring</button>
+      <div class="side-group-label">CONFIGURATION</div>
+      <button type="button" class="tab" data-tab="rules"><svg class="tab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-1.55 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.55-1 1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.26.6.86 1 1.51 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1Z"/></svg>Rules &amp; context</button>
+      <button type="button" class="tab" data-tab="sla-rules"><svg class="tab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>SLA rules</button>
+      <div class="side-foot muted">v1.0 · local</div>
+    </nav>
+
+    <main class="app-main">
+
+    <!-- ===================== HOME TAB (analytics) ===================== -->
+    <div id="tab-home" class="tab-panel">
+      <section>
+        <div class="page-head">
+          <div>
+            <h2 class="page-title">Support overview</h2>
+            <p class="page-sub">Ticket volume, automation coverage, channel mix and SLA exposure across tenants.</p>
+          </div>
+          <div class="row" style="margin:0">
+            <label>Tenant
+              <select id="home-tenant"><option value="">All tenants</option></select>
+            </label>
+            <button type="button" id="btn-home-refresh" class="secondary">Refresh</button>
+          </div>
+        </div>
+        <div id="home-kpis" class="kpi-grid"></div>
+        <div class="analytics-grid">
+          <div class="detail-card">
+            <h3>Ticket activity</h3>
+            <div id="chart-daily" class="chart"></div>
+          </div>
+          <div class="detail-card">
+            <h3>Top queues</h3>
+            <div id="chart-queue" class="chart"></div>
+          </div>
+          <div class="detail-card">
+            <h3>Resolution distribution</h3>
+            <div id="chart-resolution" class="chart"></div>
+          </div>
+          <div class="detail-card">
+            <h3>SLA risk &amp; exposure</h3>
+            <div id="home-sla-risk"></div>
+          </div>
+        </div>
+        <h3 class="subhead">Recent tickets</h3>
+        <div id="home-recent" class="mini-list"></div>
+      </section>
+      <div class="spa-detail" hidden></div>
+    </div>
+
+    <!-- ===================== INTAKE TAB ===================== -->
+    <div id="tab-intake" class="tab-panel">
+      <section>
+        <h2>Submit a ticket</h2>
+        <p class="muted">Posts a real event through
+          <code>POST /v1/pipeline/process</code>: immutable intake → masked
+          canonical event → deterministic routing → persisted LLM analysis +
+          bot answer. The ticket ID is returned and its flow opened.</p>
+        <form id="intake-form" class="form-grid intake-form">
+          <label>Tenant
+            <select id="intake-tenant" required></select>
+          </label>
+          <label>Ticket ID
+            <input id="intake-ticket-id" placeholder="auto-generated if blank" />
+          </label>
+          <label>Initial status
+            <select id="intake-status">
+              <option value="open">open</option>
+              <option value="in_progress">in progress</option>
+              <option value="pending_customer">pending customer</option>
+            </select>
+          </label>
+          <label>Priority
+            <select id="intake-priority">
+              <option value="">auto (LLM decides)</option>
+              <option value="p1">P1 — critical</option>
+              <option value="p2">P2 — high</option>
+              <option value="p3">P3 — normal</option>
+              <option value="p4">P4 — low</option>
+            </select>
+          </label>
+          <label class="wide">Subject
+            <input id="intake-subject" required maxlength="200"
+              placeholder="e.g. Payroll run failed — how do I retry?" />
+          </label>
+          <label class="wide">Message body (customer-style)
+            <textarea id="intake-body" rows="8" required
+              placeholder="Hi team, our payroll run RUN-… failed overnight and 200 employees have no payslips. How do I retry it?"></textarea>
+          </label>
+          <label>Age (hours, optional)
+            <input id="intake-age" type="number" min="0" step="0.5" placeholder="0" />
+          </label>
+          <div class="wide row" style="margin-top:.6rem">
+            <button type="submit" id="btn-intake">Submit &amp; trace flow</button>
+            <span id="intake-result" class="muted"></span>
+          </div>
+        </form>
+      </section>
+      <div class="spa-detail" hidden></div>
+    </div>
+
+    <!-- ===================== TICKETS TAB ===================== -->
+    <div id="tab-tickets" class="tab-panel" hidden>
+      <section>
+        <div class="section-head">
+          <h2>Ticket queue</h2>
+          <div class="row" style="margin:0">
+            <label>Tenant
+              <select id="db-tenant"><option value="">All tenants</option></select>
+            </label>
+            <label>Channel
+              <select id="db-channel"><option value="">All channels</option></select>
+            </label>
+            <button type="button" id="btn-refresh" class="secondary">Refresh</button>
+            <label class="muted auto-toggle"><input id="db-auto" type="checkbox" checked /> auto 5s</label>
+          </div>
+        </div>
+        <div id="db-cards" class="cards"></div>
+        <div id="db-table-wrap">
+          <table id="db-table">
+            <thead>
+              <tr>
+                <th>Ticket</th><th>Tenant</th><th>Channel</th><th>Priority</th><th>Queue</th><th>Rule</th>
+                <th>Status</th><th>Ver</th><th>Updated</th>
+              </tr>
+            </thead>
+            <tbody id="db-tbody"></tbody>
+          </table>
+          <p id="db-empty" class="muted" hidden>No tickets yet — use
+            <strong>New ticket</strong> to submit one.</p>
+        </div>
+      </section>
+      <div class="spa-detail" hidden></div>
+    </div>
+
+    <!-- ===================== CHANNELS TAB ===================== -->
+    <div id="tab-channels" class="tab-panel" hidden>
+      <section>
+        <div class="section-head">
+          <h2>Tickets per channel</h2>
+          <div class="row" style="margin:0">
+            <label>Tenant
+              <select id="ch-tenant"><option value="">All tenants</option></select>
+            </label>
+            <button type="button" id="btn-ch-refresh" class="secondary">Refresh</button>
+          </div>
+        </div>
+        <p class="muted">Intake channel breakdown — volume, open load, bot
+          involvement and SLA exposure per source (widget, email, partner,
+          WhatsApp, phone).</p>
+        <div id="ch-cards" class="channel-grid"></div>
+        <h3 class="subhead">Channel detail</h3>
+        <div id="ch-table-wrap">
+          <table id="ch-table">
+            <thead>
+              <tr><th>Channel</th><th>Tickets</th><th>Open</th><th>Resolved / closed</th><th>Bot-handled</th><th>SLA breached</th><th>Penalty</th></tr>
+            </thead>
+            <tbody id="ch-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+      <div class="spa-detail" hidden></div>
+    </div>
+
+    <!-- ===================== WORKLIST TAB ===================== -->
+    <div id="tab-worklist" class="tab-panel" hidden>
+      <section>
+        <h2>Agent worklist</h2>
+        <p class="muted">Tickets grouped by who needs to act on them next —
+          pending first, then bot-resolved, then human-resolved.</p>
+        <div id="wl-analysis" class="cards"></div>
+        <div class="split-lists">
+          <div class="list-panel">
+            <h3>Pending agent action <span id="pending-count" class="count"></span></h3>
+            <p class="muted">Routed to a queue / draft-for-agent — needs a human to finish.</p>
+            <div id="pending-list" class="mini-list"></div>
+          </div>
+          <div class="list-panel">
+            <h3>Bot-solved <span id="bot-count" class="count"></span></h3>
+            <p class="muted">Auto-routed and resolved by the pipeline — no agent touch.</p>
+            <div id="bot-list" class="mini-list"></div>
+          </div>
+          <div class="list-panel">
+            <h3>Human-solved <span id="human-count" class="count"></span></h3>
+            <p class="muted">Resolved or closed by an agent.</p>
+            <div id="human-list" class="mini-list"></div>
+          </div>
+        </div>
+      </section>
+      <div class="spa-detail" hidden></div>
+    </div>
+
+    <!-- ===================== SLA MONITORING TAB ===================== -->
+    <div id="tab-sla" class="tab-panel" hidden>
+      <section>
+        <div class="section-head">
+          <h2>SLA monitoring</h2>
+          <div class="row" style="margin:0">
+            <label>Tenant
+              <select id="sla-tenant-filter"><option value="">All tenants</option></select>
+            </label>
+            <button type="button" id="btn-sla" class="secondary">Evaluate</button>
+          </div>
+        </div>
+        <p class="muted">Unanswered tickets past SLA thresholds accrue penalties
+          (<code>routing_policy/sla.yaml</code> — tenant-specific rules take
+          precedence over generic ones).</p>
+        <div id="sla-cards" class="cards"></div>
+        <h3 class="subhead">Ticket evaluation</h3>
+        <div id="sla-table-wrap">
+          <table id="sla-table">
+            <thead>
+              <tr><th>Ticket</th><th>Tenant</th><th>Status</th><th>Age (h)</th><th>Routing rule</th><th>SLA rule</th><th>Penalty</th></tr>
+            </thead>
+            <tbody id="sla-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+      <div class="spa-detail" hidden></div>
+    </div>
+
+    <!-- ===================== RULES TAB ===================== -->
+    <div id="tab-rules" class="tab-panel" hidden>
+      <div class="subtabs">
+        <button type="button" class="subtab active" data-sub="rules-main" title="Approved deterministic routing rules — regex patterns, queues, lanes, validity windows">Routing rules</button>
+        <button type="button" class="subtab" data-sub="rules-ctx" title="Per-tenant classification hints and policy lifecycle (active / scheduled / expired / inactive)">Tenant classification context</button>
+      </div>
+
+      <div id="rules-main">
+      <section>
+        <div class="section-head">
+          <h2>Deterministic routing rules</h2>
+          <div class="row" style="margin:0">
+            <label>Tenant
+              <select id="rules-tenant"><option value="">All tenants</option></select>
+            </label>
+            <label>Status
+              <select id="rules-status">
+                <option value="">All statuses</option>
+                <option value="approved">approved</option>
+                <option value="in_progress">in progress</option>
+                <option value="outdated">outdated</option>
+                <option value="draft">draft</option>
+                <option value="expired">expired</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <p class="muted" id="policy-meta"></p>
+        <div id="rules-table-wrap">
+          <table id="rules-table">
+            <thead>
+              <tr><th>Rule</th><th>Status</th><th>Tenant</th><th>Validity</th><th>Queue</th><th>Lane</th><th>Region</th><th>Signals</th></tr>
+            </thead>
+            <tbody id="rules-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+      </div><!-- /rules-main -->
+
+      <div id="rules-ctx" hidden>
+        <section>
+          <div class="section-head">
+            <h2>Tenant classification context</h2>
+            <label>Tenant
+              <select id="ctx-tenant"><option value="">Select tenant…</option></select>
+            </label>
+          </div>
+          <p class="muted">Per-tenant hints injected into every LLM classify call —
+            queue hints, priority guidance — plus that tenant's routing policies
+            with lifecycle status (active / scheduled / expired / inactive).
+            Separate from SLA rules.</p>
+          <div id="ctx-detail"></div>
+        </section>
+      </div>
+      <div class="spa-detail" hidden></div>
+    </div>
+
+    <!-- ===================== SLA RULES TAB ===================== -->
+    <div id="tab-sla-rules" class="tab-panel" hidden>
+      <section>
+        <div class="section-head">
+          <h2>SLA &amp; penalty policy</h2>
+          <div class="row" style="margin:0">
+            <label>Tenant
+              <select id="sla-tenant"><option value="">All tenants</option></select>
+            </label>
+            <label>Status
+              <select id="sla-status">
+                <option value="">All statuses</option>
+                <option value="approved">approved</option>
+                <option value="in_progress">in progress</option>
+                <option value="outdated">outdated</option>
+                <option value="draft">draft</option>
+                <option value="expired">expired</option>
+                <option value="scheduled">scheduled</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <p class="muted" id="sla-policy-meta"></p>
+        <div id="sla-rules-table-wrap">
+          <table id="sla-rules-table">
+            <thead>
+              <tr><th>Rule</th><th>Status</th><th>Tenant</th><th>Active from</th><th>Deactivates</th><th>Threshold</th><th>Penalty</th><th>Description</th></tr>
+            </thead>
+            <tbody id="sla-rules-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+      <div class="spa-detail" hidden></div>
+    </div>
+
+    </main>
+    </div><!-- /app-shell -->
+
+    <footer>
+      <p class="muted">Local dev dashboard — ticket data persists in the
+        embedded PostgreSQL (<code>data/pgdata</code>).</p>
+    </footer>
+
+    <script src="dashboard.js" type="module"></script>
+  </body>
+</html>

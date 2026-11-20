@@ -1,0 +1,95 @@
+# SLA / penalty rules — separate from routing rules (classification context
+# lives in routing_policy/tenant_context/*.yaml, NOT here).
+# A ticket left unanswered (status open/pending_customer) past a threshold
+# accrues the penalty amount shown. Tenant-specific rules take precedence
+# over generic (tenant_id: null) rules for that tenant.
+# valid_from/valid_to bound when a rule is active; status tracks lifecycle
+# (approved | in_progress | outdated | draft | expired).
+sla_policy_version: sla-g3-synthetic-v3
+
+rules:
+  # --- C-1001 (IN) ---
+  - id: sla-c1001-unanswered-4h
+    tenant_id: C-1001
+    unanswered_hours: 4
+    penalty_amount: "200.00"
+    currency: INR
+    valid_from: "2026-01-01"
+    status: approved
+    applies_to_statuses: [open, pending_customer]
+    description: C-1001 first-tier penalty over 4h unanswered
+
+  - id: sla-c1001-unanswered-24h
+    tenant_id: C-1001
+    unanswered_hours: 24
+    penalty_amount: "800.00"
+    currency: INR
+    valid_from: "2026-01-01"
+    status: approved
+    applies_to_statuses: [open, pending_customer]
+    description: C-1001 escalated penalty over 24h unanswered
+
+  # --- C-1002 (IN) ---
+  - id: sla-c1002-unanswered-6h
+    tenant_id: C-1002
+    unanswered_hours: 6
+    penalty_amount: "300.00"
+    currency: INR
+    valid_from: "2026-01-01"
+    status: approved
+    applies_to_statuses: [open, pending_customer]
+    description: C-1002 first-tier penalty over 6h unanswered
+
+  - id: sla-c1002-unanswered-36h
+    tenant_id: C-1002
+    unanswered_hours: 36
+    penalty_amount: "1200.00"
+    currency: INR
+    valid_from: "2026-01-01"
+    status: in_progress
+    applies_to_statuses: [open, pending_customer]
+    description: C-1002 escalated penalty over 36h unanswered
+
+  # --- Expired legacy rule (kept for audit; never applies) ---
+  - id: sla-c1001-unanswered-2h-legacy
+    tenant_id: C-1001
+    unanswered_hours: 2
+    penalty_amount: "50.00"
+    currency: INR
+    valid_from: "2025-01-01"
+    valid_to: "2025-12-31"
+    status: approved
+    applies_to_statuses: [open, pending_customer]
+    description: Legacy C-1001 2h tier — expired end of 2025
+
+  # --- Generic fallbacks (any tenant) ---
+  - id: sla-in-unanswered-4h
+    region: IN
+    unanswered_hours: 4
+    penalty_amount: "250.00"
+    currency: INR
+    valid_from: "2026-01-01"
+    status: approved
+    applies_to_statuses: [open, pending_customer]
+    description: Generic IN first-tier penalty
+
+  - id: sla-in-unanswered-24h
+    region: IN
+    unanswered_hours: 24
+    penalty_amount: "1000.00"
+    currency: INR
+    valid_from: "2026-01-01"
+    status: approved
+    applies_to_statuses: [open, pending_customer]
+    description: Generic IN escalated penalty
+
+  - id: sla-uae-unanswered-8h
+    region: UAE
+    unanswered_hours: 8
+    penalty_amount: "150.00"
+    currency: AED
+    valid_from: "2026-01-01"
+    valid_to: "2026-12-31"
+    status: approved
+    applies_to_statuses: [open, pending_customer]
+    description: UAE unanswered-ticket penalty tier

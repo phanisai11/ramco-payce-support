@@ -1,0 +1,175 @@
+:root {
+  font-family: system-ui, sans-serif;
+  line-height: 1.45;
+  color: #1a1a1a;
+  background: #f6f7f9;
+}
+
+body {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 3rem;
+}
+
+header h1 {
+  font-size: 1.35rem;
+  margin-bottom: 0.25rem;
+}
+
+.muted {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+code {
+  background: #e8eaef;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.25rem 0 1.5rem;
+}
+
+nav a {
+  color: #0b57d0;
+}
+
+section {
+  background: #fff;
+  border: 1px solid #e0e3e8;
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  margin-bottom: 1.25rem;
+}
+
+section h2 {
+  margin-top: 0;
+  font-size: 1.05rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+label {
+  font-size: 0.9rem;
+}
+
+label.block {
+  display: block;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="datetime-local"],
+textarea {
+  font: inherit;
+  padding: 0.35em 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 8rem;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button {
+  font: inherit;
+  margin-top: 0.6rem;
+  padding: 0.45em 0.9em;
+  background: #0b57d0;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0842a0;
+}
+
+.out {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: #0d1117;
+  color: #e6edf3;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.82rem;
+  min-height: 2.5rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0.75rem 0;
+}
+
+.card {
+  background: #f0f4ff;
+  border: 1px solid #d3e0fb;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  min-width: 7rem;
+  text-align: center;
+}
+
+.card b {
+  display: block;
+  font-size: 1.4rem;
+  color: #0b57d0;
+}
+
+.card span {
+  font-size: 0.8rem;
+  color: #444;
+}
+
+#db-table-wrap {
+  overflow-x: auto;
+}
+
+#db-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+#db-table th,
+#db-table td {
+  text-align: left;
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+#db-table th {
+  color: #555;
+  font-weight: 600;
+}
+
+.status-sel {
+  font: inherit;
+  padding: 0.2em 0.4em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+footer {
+  margin-top: 2rem;
+}

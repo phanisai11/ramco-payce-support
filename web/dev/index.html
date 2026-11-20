@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Payce Support — Dev UI</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Payce Support Intelligence · Dev UI</h1>
+      <p class="muted">
+        Served by the API (<code>/dev/ui</code>). Calls use same-origin paths — run
+        <code>uvicorn payce_support.api.app:app --reload --port 8000</code> and open this page from that server.
+        <a href="/dev/ui/dashboard.html">Dashboard</a>
+      </p>
+    </header>
+
+    <nav>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#llm">LLM Assist</a>
+      <a href="#health">Health</a>
+      <a href="#statutory">Statutory</a>
+      <a href="#routing">Routing</a>
+      <a href="#incident">Incident</a>
+      <a href="#intake">Intake</a>
+    </nav>
+
+    <section id="dashboard">
+      <h2>Ticket dashboard</h2>
+      <div class="row">
+        <label>tenant filter <input id="db-tenant" placeholder="C-1001 (empty = all)" /></label>
+        <button type="button" id="btn-dashboard">Refresh</button>
+      </div>
+      <div id="db-cards" class="cards"></div>
+      <div id="db-table-wrap">
+        <table id="db-table">
+          <thead>
+            <tr>
+              <th>Ticket</th><th>Tenant</th><th>Queue</th><th>Status</th>
+              <th>v</th><th>Updated</th>
+            </tr>
+          </thead>
+          <tbody id="db-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="llm">
+      <h2>LLM routing assist</h2>
+      <p class="muted">Runs inside <code>POST /v1/routing/classify</code> — the LLM
+        summarizes the ticket, sets priority, and suggests RAG files using the
+        tenant context; approved rules still decide the route.</p>
+      <div class="row">
+        <label>tenant <input id="llm-tenant" value="C-1001" /></label>
+        <label>region
+          <select id="llm-region">
+            <option value="IN">IN</option>
+            <option value="UAE">UAE</option>
+          </select>
+        </label>
+      </div>
+      <label class="block">ticket text</label>
+      <textarea id="llm-text" rows="3">My salary was not credited this month and I need it urgently</textarea>
+      <button type="button" id="btn-llm">Classify with LLM assist</button>
+      <pre id="out-llm" class="out"></pre>
+    </section>
+
+    <section id="health">
+      <h2>Health</h2>
+      <button type="button" id="btn-health">GET /health</button>
+      <pre id="out-health" class="out"></pre>
+    </section>
+
+    <section id="statutory">
+      <h2>Statutory resolve</h2>
+      <div class="row">
+        <label>region <input id="st-region" value="IN" /></label>
+        <label>topic <input id="st-topic" value="pf_wage_ceiling" /></label>
+        <label>as_of <input id="st-asof" type="date" value="2026-08-15" /></label>
+      </div>
+      <button type="button" id="btn-statutory">GET /v1/statutory/resolve</button>
+      <pre id="out-statutory" class="out"></pre>
+    </section>
+
+    <section id="routing">
+      <h2>Routing classify</h2>
+      <div class="row">
+        <label>tenant_id <input id="rt-tenant" value="C-1001" /></label>
+        <label>region <input id="rt-region" value="IN" /></label>
+        <label><input id="rt-p1" type="checkbox" /> P1</label>
+        <label><input id="rt-assist" type="checkbox" /> LLM assist</label>
+      </div>
+      <label class="block">text</label>
+      <textarea id="rt-text" rows="3">Question on EPF contribution statutory ceiling India</textarea>
+      <button type="button" id="btn-routing">POST /v1/routing/classify</button>
+      <pre id="out-routing" class="out"></pre>
+    </section>
+
+    <section id="incident">
+      <h2>Incident signal</h2>
+      <div class="row">
+        <label>tenant_id <input id="in-tenant" value="C-1001" /></label>
+        <label>channel <input id="in-channel" value="email" /></label>
+        <label>received_at <input id="in-when" type="datetime-local" /></label>
+      </div>
+      <div class="row">
+        <label>error_code <input id="in-code" value="PAYSLIP_RENDER_EMPTY" /></label>
+      </div>
+      <label class="block">subject</label>
+      <input id="in-subj" value="Blank payslip PDF" />
+      <label class="block">body</label>
+      <textarea id="in-body" rows="2">Meridian employees see empty payslip attachment</textarea>
+      <button type="button" id="btn-incident">POST /v1/incident/signals</button>
+      <pre id="out-incident" class="out"></pre>
+    </section>
+
+    <section id="intake">
+      <h2>Intake event</h2>
+      <div class="row">
+        <label>principal <input id="in-principal" value="dev-principal" /></label>
+        <label>channel_account <input id="in-chacc" value="widget-in" /></label>
+        <label>tenant <input id="in-tenant2" value="C-1001" /></label>
+      </div>
+      <div class="row">
+        <label>source_event_id <input id="in-seid" value="" /></label>
+        <span class="muted">(auto if empty)</span>
+      </div>
+      <label class="block">raw body (UTF-8 → base64)</label>
+      <textarea id="in-raw" rows="2">{"message":"help","from":"dev-ui"}</textarea>
+      <button type="button" id="btn-intake">POST /v1/intake/events</button>
+      <pre id="out-intake" class="out"></pre>
+    </section>
+
+    <footer>
+      <p class="muted">
+        Production: add auth (OAuth2 / IAP); this UI is for local simulation only.
+        <a href="/docs">OpenAPI docs</a>
+      </p>
+    </footer>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>

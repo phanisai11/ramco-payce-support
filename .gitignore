@@ -1,0 +1,67 @@
+# ── Separate project — never push ──────────────────────────────
+MVP-SautHaul-Demo-main/
+
+# ── Secrets / env / credentials ────────────────────────────────
+app.yaml
+app.local.yaml
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.devin/
+secrets*.yaml
+secrets*.yml
+secrets*.json
+*credentials*.json
+*service-account*.json
+
+# ── AWS / cloud deploy internals ───────────────────────────────
+scripts/provision_aws.py
+scripts/deploy_eb.py
+scripts/aws_env.sh
+scripts/setup_cloudwatch.sh
+scripts/deploy_sync.sh
+cloudbuild/
+iam/
+deploy/
+
+# ── Local data / runtime state ─────────────────────────────────
+data/pgdata/
+data/*.db
+data/*.db-*
+data/objects/
+data/payce.log
+data/llm_traces.jsonl
+*.sqlite
+*.sqlite3
+
+# ── Python / Node artifacts ────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.venv*/
+.venv-ragas/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+node_modules/
+web/app/.next/
+web/app/out/
+web/dev/node_modules/
+*.tsbuildinfo
+
+# ── IDE / OS ───────────────────────────────────────────────────
+.idea/
+.vscode/
+*.iml
+.DS_Store
+.git/
+
+# ── Misc local-only ────────────────────────────────────────────
+untitled/
+screenshot*.png
+Screenshot*.png
+*.log

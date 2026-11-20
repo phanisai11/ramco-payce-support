@@ -1,0 +1,132 @@
+policy_version: routing-g3-synthetic-v3
+approved_rule_ids:
+- route-c1001-statutory-pf-2025
+- route-c1001-statutory-pf-2026
+- route-c1002-statutory-pf-2026
+- route-in-payroll-run-v1
+- route-uae-wps-v1
+- route-in-howto-auto-v1
+- route-in-status-auto-v1
+- route-general-fallback-v1
+rules:
+- id: route-c1001-statutory-pf-2025
+  tenant_id: C-1001
+  queue_id: Statutory-Compliance
+  lane: DRAFT_FOR_AGENT
+  region: IN
+  valid_from: '2025-01-01'
+  valid_to: '2025-12-31'
+  pattern: (?i)\b(pf|provident|epf|employee provident)\b
+  signals:
+  - pf
+  - epf
+  - provident_fund
+  - employee_provident_fund
+  - statutory_deduction
+  status: expired
+  reason_codes:
+  - REGION_IN
+  - ENTITY_PF
+  - TENANT_C1001
+  - RULE_YEAR_2025
+- id: route-c1001-statutory-pf-2026
+  tenant_id: C-1001
+  queue_id: Statutory-Compliance
+  lane: DRAFT_FOR_AGENT
+  region: IN
+  valid_from: '2026-01-01'
+  pattern: (?i)\b(pf|provident|epf|employee provident)\b
+  signals:
+  - pf
+  - epf
+  - provident_fund
+  - employee_provident_fund
+  - statutory_deduction
+  status: approved
+  reason_codes:
+  - REGION_IN
+  - ENTITY_PF
+  - TENANT_C1001
+  - RULE_YEAR_2026
+- id: route-c1002-statutory-pf-2026
+  tenant_id: C-1002
+  queue_id: Statutory-Compliance
+  lane: DRAFT_FOR_AGENT
+  region: IN
+  valid_from: '2026-01-01'
+  pattern: (?i)\b(pf|provident|epf|employee provident)\b
+  signals:
+  - pf
+  - epf
+  - provident_fund
+  - employee_provident_fund
+  - statutory_deduction
+  status: approved
+  reason_codes:
+  - REGION_IN
+  - ENTITY_PF
+  - TENANT_C1002
+  - RULE_YEAR_2026
+- id: route-in-payroll-run-v1
+  queue_id: Payroll-Operations
+  lane: DRAFT_FOR_AGENT
+  region: IN
+  pattern: (?i)(salary\s+not\s+credited|pay\s+not\s+received|payroll\s+run\s+(failed|stuck))
+  signals:
+  - payroll_run
+  - salary_not_credited
+  - pay_not_received
+  - missed_salary
+  - payroll_failed
+  status: approved
+  reason_codes:
+  - REGION_IN
+  - PAYROLL_RUN
+- id: route-uae-wps-v1
+  queue_id: UAE-WPS
+  lane: DRAFT_FOR_AGENT
+  region: UAE
+  pattern: (?i)\b(wps|salary\s+file|sif\s+file)\b
+  signals:
+  - wps
+  - salary_file
+  - sif_file
+  - uae_salary
+  - wps_file
+  status: approved
+  reason_codes:
+  - REGION_UAE
+  - WPS
+- id: route-in-howto-auto-v1
+  queue_id: Self-Service
+  lane: AUTO_ANSWER
+  region: IN
+  pattern: (?i)\b(how (do|to)|steps to|step-by-step|guide)\b
+  signals:
+  - how_to
+  - self_service
+  status: approved
+  reason_codes:
+  - REGION_IN
+  - HOW_TO_FAQ
+- id: route-in-status-auto-v1
+  queue_id: Self-Service
+  lane: AUTO_ANSWER
+  region: IN
+  pattern: (?i)\b(status of|status check|track (my|the)|where is my|any update on|what(?:'s|
+    is) the status)\b
+  signals:
+  - status_inquiry
+  - self_service
+  status: approved
+  reason_codes:
+  - REGION_IN
+  - STATUS_INQUIRY
+- id: route-general-fallback-v1
+  queue_id: General-Support
+  lane: DRAFT_FOR_AGENT
+  pattern: (?s).+
+  signals: []
+  status: approved
+  reason_codes:
+  - FALLBACK_UNMATCHED
